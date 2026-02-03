@@ -1,0 +1,27 @@
+import { useSearchParams } from "react-router-dom";
+import { yt_html } from "../assets/assets";
+
+function YtPreview() {
+  const [searchParams] = useSearchParams();
+  
+  const thumbnail_url = searchParams.get('thumbnail_url') || "";
+  const title = searchParams.get('title') || "New Video";
+
+  const new_html = yt_html
+    .replace("%%THUMBNAIL_URL%%", thumbnail_url)
+    .replace("%%TITLE%%", title);
+
+  return (
+    
+    <div className="fixed inset-0 z-[9999] bg-black">
+      <iframe 
+        srcDoc={new_html} 
+        className="w-full h-full border-none" 
+        title="YouTube Preview"
+        allowFullScreen
+      ></iframe>
+    </div>
+  );
+}
+
+export default YtPreview;
