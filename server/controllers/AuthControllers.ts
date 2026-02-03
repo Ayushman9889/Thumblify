@@ -86,6 +86,7 @@ export const logoutUser = async (req: Request, res: Response) =>{
             return res.status(500).json({message: error.message})
         }
     })
+    res.clearCookie('connect.sid', { path: '/' });
     return res.json({message: 'Logout sucssesfully'})
 }
 

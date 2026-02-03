@@ -3,6 +3,7 @@ import type { IUser } from "../assets/assets";
 import api from "../configs/api";
 import toast from "react-hot-toast";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface AuthContextProps {
     isLoggedIn: boolean;
@@ -26,6 +27,8 @@ const AuthContext = createContext<AuthContextProps>({
 })
 
 export const AuthProvider = ({children}: {children: React.ReactNode})=>{
+
+    const navigate = useNavigate()
 
     const [user, setUser] = useState<IUser | null>(null)
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
@@ -66,6 +69,8 @@ export const AuthProvider = ({children}: {children: React.ReactNode})=>{
             setUser(null)
             setIsLoggedIn(false)
             toast.success(data.message)
+
+            navigate('/')
 
         } catch (error) {
             console.log(error);
